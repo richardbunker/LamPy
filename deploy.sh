@@ -1,7 +1,7 @@
 #! /bin/bash
 
-# Deploy NetGo
-# This script handles the build and deployment of the NetGo application via Terraform.
+# Deploy LamPy
+# This script is used to deploy the LamPy application to AWS.
 
 # Set the AWS profile via argument
 if [ -z "$1" ]; then
