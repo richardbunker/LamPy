@@ -1,0 +1,16 @@
+meta {
+  name: /
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://{{server}}/users/1234?sort=asc
+  body: none
+  auth: none
+}
+
+params:query {
+  sort: asc
+  ~hello: yes
+}

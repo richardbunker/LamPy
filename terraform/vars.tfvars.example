@@ -1,0 +1,6 @@
+service_name         = "lampy-app1"
+cost_center          = "lampy-app1-cc"
+lambda_function_name = "lampy-app1-lambda"
+api_name             = "lampy-app1-api"
+api_domain_name      = "lampy-app1-api.your-domain.com"
+domain_name          = "your-domain.com"
