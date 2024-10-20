@@ -48,9 +48,11 @@ class LambdaHandler(BaseHTTPRequestHandler):
         body = self._parse_body()
         req = {
             "headers": self._parse_headers(),
-            "http": {
-                "path": path,
-                "method": self.command,
+            "requestContext": {
+                "http": {
+                    "path": path,
+                    "method": self.command,
+                }
             }
         }
         if query_params:

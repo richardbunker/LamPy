@@ -1,6 +1,7 @@
 import json
 from typing import cast
 from app_types.http import Headers, Request, Response
+from logger import Logger
 
 class LamPy:
     """
@@ -11,6 +12,9 @@ class LamPy:
         """
             Start the LamPy application.
         """
+        # Log the request
+        Logger.request(awg_event)
+
         response: Response = {
             "statusCode": 200,
             "body": json.dumps(awg_event),

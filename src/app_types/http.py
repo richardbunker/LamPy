@@ -7,12 +7,15 @@ class HTTP(TypedDict):
     path: str
     method: str
 
+class RequestContext(TypedDict):
+    http: HTTP
+
 class QueryStringParameters(TypedDict, total=False):
     pass
 
 class Request(TypedDict):
     headers: Optional[Headers]
-    http: HTTP
+    requestContext: RequestContext
     queryStringParameters: Optional[QueryStringParameters]
     body: Optional[str]
 
