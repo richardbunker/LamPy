@@ -5,12 +5,18 @@ meta {
 }
 
 get {
-  url: https://{{server}}/users/1234?sort=asc
-  body: none
+  url: {{server}}/users/1234?hello=yes&no=yes
+  body: json
   auth: none
 }
 
 params:query {
-  sort: asc
-  ~hello: yes
+  hello: yes
+  no: yes
+}
+
+body:json {
+  {
+    "test": 1
+  }
 }

@@ -1,21 +1,21 @@
 import json
-
+from typing import cast
+from app_types.http import Headers, Request, Response
 
 class LamPy:
     """
         LamPy is a simple web framework for AWS Lambda.
         It is designed to be used with API Gateway.
     """
-    def handle(self, event):
+    def handle(self, awg_event: Request) -> Response:
         """
             Start the LamPy application.
         """
-        print("Event: ", event)
-        return {
-          "statusCode": 200,
-          "body": json.dumps(event),
-          "headers": {
-            "content-type": "application/json"
-          }
+        response: Response = {
+            "statusCode": 200,
+            "body": json.dumps(awg_event),
+            'headers': cast(Headers, {
+                'Content-Type': 'application/json'
+            })
         }
-        
+        return response
