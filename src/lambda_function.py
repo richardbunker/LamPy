@@ -1,6 +1,4 @@
-from application import LamPy
+from bootstrap import bootstrap
 
 def lambda_handler(event, context):
-    app = LamPy()
-    response = app.handle(event)
-    return response
+    return bootstrap(event)

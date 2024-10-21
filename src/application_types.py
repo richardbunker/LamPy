@@ -1,7 +1,6 @@
-from typing import TypedDict, Optional
+from typing import Callable, Dict, TypedDict, Optional
 
-class Headers(TypedDict, total=False):
-    pass
+Headers = TypedDict('Headers', {'Content-Type': str}, total=False)
 
 class HTTP(TypedDict):
     path: str
@@ -20,7 +19,15 @@ class Request(TypedDict):
     body: Optional[str]
 
 
-class Response(TypedDict):
+class Response(TypedDict, total=False):
     statusCode: int
     body: str
     headers: Optional[Headers]
+
+Handler = Callable[[Request], Response]
+
+Route = Dict[str, Handler]
+    
+class RouteMap(TypedDict, total=False):
+    GET: Optional[Route]
+    POST: Optional[Route]

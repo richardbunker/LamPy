@@ -5,14 +5,14 @@ meta {
 }
 
 get {
-  url: {{server}}/users/1234?hello=yes&no=yes
+  url: {{server}}/
   body: json
   auth: none
 }
 
 params:query {
-  hello: yes
-  no: yes
+  ~hello: yes
+  ~no: yes
 }
 
 body:json {

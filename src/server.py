@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from application import LamPy
 from application_types import Headers, QueryStringParameters, Request
+from bootstrap import bootstrap
 
 class LambdaHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -66,9 +66,8 @@ class LambdaHandler(BaseHTTPRequestHandler):
 
     def handle_request(self):
         agw_event = self._request_adapter()
-        app = LamPy()
-        response = app.handle(agw_event)
-        
+        response = bootstrap(agw_event)
+
         # Send a response back to the client
         self.send_response(response["statusCode"])
         self.send_header("Content-type", "application/json")
