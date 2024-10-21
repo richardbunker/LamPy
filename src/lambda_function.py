@@ -1,4 +1,4 @@
-from app.lampy import LamPy
+from application import LamPy
 
 def lambda_handler(event, context):
     app = LamPy()

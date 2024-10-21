@@ -1,5 +1,5 @@
 import time
-from app_types.http import Request
+from application_types import Request
 
 class Logger:
     """

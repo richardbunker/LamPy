@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from app.lampy import LamPy
+from application import LamPy
+from application_types import Headers, QueryStringParameters, Request
 
 class LambdaHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -17,8 +18,8 @@ class LambdaHandler(BaseHTTPRequestHandler):
     def do_OPTIONS(self):
         self.handle_request()
 
-    def _parse_query_string(self):
-        query_params = {}
+    def _parse_query_string(self) -> QueryStringParameters:
+        query_params: QueryStringParameters = {}
         if "?" in self.path:
             query_param_string = self.path.split("?")[1]
             params = query_param_string.split("&")
@@ -36,24 +37,26 @@ class LambdaHandler(BaseHTTPRequestHandler):
             body = post_data.decode('utf-8')
             return body
 
-    def _parse_headers(self):
-        headers = {}
+    def _parse_headers(self) -> Headers:
+        headers: Headers = {}
         for key, value in self.headers.items():
             headers[key] = value
         return headers
 
-    def _request_adapter(self):
+    def _request_adapter(self) -> Request:
         path = self.path.split("?")[0]
-        query_params = self._parse_query_string()
+        query_params: QueryStringParameters = self._parse_query_string()
         body = self._parse_body()
-        req = {
+        req: Request = {
             "headers": self._parse_headers(),
             "requestContext": {
                 "http": {
                     "path": path,
                     "method": self.command,
                 }
-            }
+            },
+            "queryStringParameters": None,
+            "body": None
         }
         if query_params:
             req["queryStringParameters"] = query_params

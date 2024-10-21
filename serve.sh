@@ -1,4 +1,5 @@
 #! /bin/bash
 
 source ./.venv/bin/activate
-python3 ./src/server.py
+cd ./src
+python3 ./server.py

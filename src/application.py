@@ -1,6 +1,6 @@
 import json
 from typing import cast
-from app_types.http import Headers, Request, Response
+from application_types import Headers, Request, Response
 from logger import Logger
 
 class LamPy:
