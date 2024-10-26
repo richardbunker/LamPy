@@ -1,6 +1,7 @@
 from typing import Callable, Dict, NotRequired, TypedDict, Optional
 
 Headers = TypedDict("Headers", {"Content-Type": str}, total=False)
+QueryStringParameters = Dict[str, str]
 
 
 class HTTP(TypedDict):
@@ -10,10 +11,6 @@ class HTTP(TypedDict):
 
 class RequestContext(TypedDict):
     http: HTTP
-
-
-class QueryStringParameters(TypedDict, total=False):
-    pass
 
 
 class Request(TypedDict):
@@ -26,11 +23,11 @@ class Request(TypedDict):
 class Response(TypedDict):
     statusCode: int
     body: str
-    headers: NotRequired[Headers]
+    headers: Headers
 
 
 PathParams = Dict[str, str]
-Handler = Callable[[Request, Optional[PathParams]], Response]
+Handler = Callable[[Request, PathParams], Response]
 Routes = Dict[str, Handler]
 
 

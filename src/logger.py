@@ -13,14 +13,17 @@ class Logger:
         Log the request to stdout.
         """
         current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        output = (
-            f"\n📬 {current_time} [{req['requestContext']['http']['method']}] {req['requestContext']['http']['path']}"
-        )
+        method = req["requestContext"]["http"]["method"]
+        path = req["requestContext"]["http"]["path"]
+        output = f"\n📬 {current_time} [{method}] {path}"
         if "queryStringParameters" in req:
-            output += f" | Query Params: {req['queryStringParameters']}"
+            query_params = req["queryStringParameters"]
+            output += f" | Query Params: {query_params}"
         if "headers" in req:
-            output += f" | Headers: {req['headers']}"
+            headers = req["headers"]
+            output += f" | Headers: {headers}"
         if "body" in req:
-            output += f" | Body: {req['body']}"
+            body = req["body"]
+            output += f" | Body: {body}"
         output += "\n"
         print(output)
