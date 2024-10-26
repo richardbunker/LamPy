@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from api import Api
-from application_types import Headers, QueryStringParameters, Request
+from pyweb_types import Headers, QueryStringParameters, Request
 
 
 class LambdaHandler(BaseHTTPRequestHandler):
@@ -72,7 +72,7 @@ class LambdaHandler(BaseHTTPRequestHandler):
 
         # Send a response back to the client
         self.send_response(response["statusCode"])
-        self.send_header("Content-type", "application/json")
+        self.send_header("Content-type", "pyweb/json")
         self.end_headers()
         self.wfile.write(response["body"].encode("utf-8"))
 

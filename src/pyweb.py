@@ -1,13 +1,13 @@
 import re
 from typing import Dict, Tuple
-from application_types import Handler, Headers, Request, Response, RouteMap, Routes
+from pyweb_types import Handler, Headers, Request, Response, RouteMap, Routes
 from logger import Logger
 
 
 class PyWeb:
     """
-    PyWeb is a simple web framework for AWS Lambda.
-    It is designed to be used with API Gateway.
+    PyWeb is a simple and light-weight RESTful framework.
+    Copyright (c) 2024 Richard Bunker
     """
 
     def __init__(self) -> None:
@@ -35,7 +35,7 @@ class PyWeb:
 
     def handle(self, req: Request) -> Response:
         """
-        Start the LamPy application.
+        Start the PyWeb pyweb.
         """
         # Log the request
         Logger.request(req)
@@ -98,12 +98,12 @@ class PyWeb:
                 return (route, handler)
         return None
 
-    def response(
-        self, status_code: int, body: str, headers: Headers = {"Content-Type": "application/json"}
-    ) -> Response:
+    def response(self, status_code: int, body: str, headers: Headers) -> Response:
         """
-        Create an application response object.
+        Create an pyweb response object.
         """
+        if "Content-Type" not in headers:
+            headers["Content-Type"] = "application/json"
         response: Response = {
             "statusCode": status_code,
             "headers": headers,

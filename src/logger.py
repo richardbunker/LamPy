@@ -1,5 +1,5 @@
 import time
-from application_types import Request
+from pyweb_types import Request
 
 
 class Logger:

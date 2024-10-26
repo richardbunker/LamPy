@@ -1,5 +1,5 @@
-from application_types import PathParams, Request, Response
-from application import PyWeb
+from pyweb_types import PathParams, Request, Response
+from pyweb import PyWeb
 import json
 import boto3
 

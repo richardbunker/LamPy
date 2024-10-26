@@ -17,7 +17,18 @@ pip3 install -q -r requirements.txt
 # Format the code
 echo -e "💅 Formatting code...\n"
 black . -q
+
+
+# Run the tests
+echo -e "🧪 Running tests...\n"
+./test.sh
+OUTCOME=$?
 deactivate
+
+if [ $OUTCOME -ne 0 ]; then
+  echo -e "❌ Tests failed. Deployment canceled.\n"
+  exit 1
+fi
 
 echo -e "📀 Packaging deployment...\n"
 # Add the site_packages to the deployment package

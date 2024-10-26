@@ -1,6 +1,6 @@
-from typing import Callable, Dict, NotRequired, TypedDict, Optional
+from typing import Callable, Dict, TypedDict, Optional
 
-Headers = TypedDict("Headers", {"Content-Type": str}, total=False)
+Headers = Dict[str, str]
 QueryStringParameters = Dict[str, str]
 
 
@@ -14,7 +14,7 @@ class RequestContext(TypedDict):
 
 
 class Request(TypedDict):
-    headers: Optional[Headers]
+    headers: Headers
     requestContext: RequestContext
     queryStringParameters: Optional[QueryStringParameters]
     body: Optional[str]
