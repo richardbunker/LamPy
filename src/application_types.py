@@ -1,16 +1,20 @@
-from typing import Callable, Dict, TypedDict, Optional
+from typing import Callable, Dict, NotRequired, TypedDict, Optional
 
-Headers = TypedDict('Headers', {'Content-Type': str}, total=False)
+Headers = TypedDict("Headers", {"Content-Type": str}, total=False)
+
 
 class HTTP(TypedDict):
     path: str
     method: str
 
+
 class RequestContext(TypedDict):
     http: HTTP
 
+
 class QueryStringParameters(TypedDict, total=False):
     pass
+
 
 class Request(TypedDict):
     headers: Optional[Headers]
@@ -19,15 +23,17 @@ class Request(TypedDict):
     body: Optional[str]
 
 
-class Response(TypedDict, total=False):
+class Response(TypedDict):
     statusCode: int
     body: str
-    headers: Optional[Headers]
+    headers: NotRequired[Headers]
 
-Handler = Callable[[Request], Response]
 
-Route = Dict[str, Handler]
-    
+PathParams = Dict[str, str]
+Handler = Callable[[Request, Optional[PathParams]], Response]
+Routes = Dict[str, Handler]
+
+
 class RouteMap(TypedDict, total=False):
-    GET: Optional[Route]
-    POST: Optional[Route]
+    GET: Routes
+    POST: Routes

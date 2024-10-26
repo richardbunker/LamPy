@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from api import Api
 from application_types import Headers, QueryStringParameters, Request
-from bootstrap import bootstrap
+
 
 class LambdaHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -31,10 +32,10 @@ class LambdaHandler(BaseHTTPRequestHandler):
 
     def _parse_body(self):
         body = None
-        if 'Content-Length' in self.headers:
-            content_length = int(self.headers['Content-Length'])
+        if "Content-Length" in self.headers:
+            content_length = int(self.headers["Content-Length"])
             post_data = self.rfile.read(content_length)
-            body = post_data.decode('utf-8')
+            body = post_data.decode("utf-8")
             return body
 
     def _parse_headers(self) -> Headers:
@@ -56,7 +57,7 @@ class LambdaHandler(BaseHTTPRequestHandler):
                 }
             },
             "queryStringParameters": None,
-            "body": None
+            "body": None,
         }
         if query_params:
             req["queryStringParameters"] = query_params
@@ -66,7 +67,8 @@ class LambdaHandler(BaseHTTPRequestHandler):
 
     def handle_request(self):
         agw_event = self._request_adapter()
-        response = bootstrap(agw_event)
+        api = Api()
+        response = api.handle(agw_event)
 
         # Send a response back to the client
         self.send_response(response["statusCode"])
@@ -74,11 +76,13 @@ class LambdaHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(response["body"].encode("utf-8"))
 
+
 def run(server_class=HTTPServer, handler_class=LambdaHandler, port=8000):
-    server_address = ('', port)
+    server_address = ("", port)
     httpd = server_class(server_address, handler_class)
-    print(f'Starting HTTP server on port {port}...')
+    print(f"Starting HTTP server on port {port}...")
     httpd.serve_forever()
+
 
 if __name__ == "__main__":
     run()
