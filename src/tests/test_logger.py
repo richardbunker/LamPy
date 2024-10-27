@@ -1,7 +1,6 @@
 import unittest
 from io import StringIO
 from contextlib import redirect_stdout
-from unittest.mock import patch
 from logger import Logger
 from pyweb_types import Request
 
