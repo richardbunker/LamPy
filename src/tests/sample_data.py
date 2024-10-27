@@ -1,8 +1,8 @@
-from pyweb_types import Headers, Request
+from pyweb_types import Headers, Method, Request
 
 
 class SampleData:
-    def event(self, method: str, path: str) -> Request:
+    def request(self, method: Method, path: str) -> Request:
         headers: Headers = {
             "Accept": "*/*",
             "Accept-Encoding": "gzip, deflate",

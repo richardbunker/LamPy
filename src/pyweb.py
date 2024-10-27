@@ -1,6 +1,6 @@
 import re
 from typing import Dict, Tuple
-from pyweb_types import Handler, Headers, Request, Response, RouteMap, Routes
+from pyweb_types import Environment, Handler, Headers, Request, Response, RouteMap, Routes
 from logger import Logger
 
 
@@ -10,7 +10,8 @@ class PyWeb:
     Copyright (c) 2024 Richard Bunker
     """
 
-    def __init__(self) -> None:
+    def __init__(self, environment: Environment) -> None:
+        self.environment: Environment = environment
         self.routes: RouteMap = {}
 
     def GET(self, path: str, handler: Handler) -> None:
@@ -38,7 +39,7 @@ class PyWeb:
         Start the PyWeb pyweb.
         """
         # Log the request
-        Logger.request(req)
+        Logger.request(req, self.environment)
 
         # Get the method
         method = req["requestContext"]["http"]["method"]
@@ -95,7 +96,7 @@ class PyWeb:
                 return (route, handler)
         return None
 
-    def response(self, status_code: int, body: str, headers: Headers) -> Response:
+    def response(self, status_code: int, body: str, headers: Headers = {}) -> Response:
         """
         Create an pyweb response object.
         """

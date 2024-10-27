@@ -1,12 +1,14 @@
-from pyweb_types import PathParams, Request, Response
+from pyweb_types import Environment, PathParams, Request, Response
 from pyweb import PyWeb
 import json
 import boto3
+from environment import get_environment
 
 
 class Api:
     def __init__(self) -> None:
-        self.app = PyWeb()
+        env: Environment = get_environment()
+        self.app = PyWeb(env)
         self.app.GET("/", self.index)
         self.app.GET("/users/:user_id", self.show_user)
 

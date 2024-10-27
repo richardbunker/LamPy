@@ -1,6 +1,8 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import os
+from typing import cast
 from api import Api
-from pyweb_types import Headers, QueryStringParameters, Request
+from pyweb_types import Method, Headers, QueryStringParameters, Request
 
 
 class LambdaHandler(BaseHTTPRequestHandler):
@@ -48,12 +50,13 @@ class LambdaHandler(BaseHTTPRequestHandler):
         path = self.path.split("?")[0]
         query_params: QueryStringParameters = self._parse_query_string()
         body = self._parse_body()
+        method: Method = cast(Method, self.command)
         req: Request = {
             "headers": self._parse_headers(),
             "requestContext": {
                 "http": {
                     "path": path,
-                    "method": self.command,
+                    "method": method,
                 }
             },
             "queryStringParameters": None,
@@ -66,6 +69,7 @@ class LambdaHandler(BaseHTTPRequestHandler):
         return req
 
     def handle_request(self):
+        os.environ["ENVIRONMENT"] = "LOCAL"
         agw_event = self._request_adapter()
         api = Api()
         response = api.handle(agw_event)

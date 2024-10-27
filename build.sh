@@ -33,10 +33,10 @@ fi
 echo -e "📀 Packaging deployment...\n"
 # Add the site_packages to the deployment package
 cd ./.venv/lib/python3.12/site-packages
-zip -rq ../../../../deployment.zip . -x "*__pycache__/*" -x "black*/*" -x "_black*" 
+zip -rq ../../../../deployment.zip . -x "*__pycache__/*" "black*/*" "_black*" "coverage*/*" "pip*/*"
 # Add the source code to the deployment package
 cd $DIR/src
-zip -rq ../deployment.zip . -x "*__pycache__/*" -x "server.py"
+zip -rq ../deployment.zip . -x "*__pycache__/*" "server.py" "tests/*" ".coverage"
 
 
 echo -e "📦 Deployment package created!\n"

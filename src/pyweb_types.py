@@ -2,7 +2,8 @@ from typing import Callable, Dict, Literal, TypedDict, Optional
 
 Headers = Dict[str, str]
 QueryStringParameters = Dict[str, str]
-Method = Literal["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+Method = Literal["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"]
+Environment = Literal["LOCAL", "STAGING", "PRODUCTION"]
 
 
 class HTTP(TypedDict):
