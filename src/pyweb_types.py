@@ -1,12 +1,13 @@
-from typing import Callable, Dict, TypedDict, Optional
+from typing import Callable, Dict, Literal, TypedDict, Optional
 
 Headers = Dict[str, str]
 QueryStringParameters = Dict[str, str]
+Method = Literal["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 
 
 class HTTP(TypedDict):
     path: str
-    method: str
+    method: Method
 
 
 class RequestContext(TypedDict):
@@ -30,7 +31,4 @@ PathParams = Dict[str, str]
 Handler = Callable[[Request, PathParams], Response]
 Routes = Dict[str, Handler]
 
-
-class RouteMap(TypedDict, total=False):
-    GET: Routes
-    POST: Routes
+RouteMap = Dict[Method, Routes]

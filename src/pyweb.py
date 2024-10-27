@@ -47,23 +47,20 @@ class PyWeb:
         # Check if the method is supported
         if method not in self.routes:
             return self.response(405, "Method not allowed", {})
+        else:
+            # Get a method's routes
+            routes: Routes = self.routes[method]
 
-        # Get a method's routes
-        routes: Routes = self.routes[method]
+            # Check if the route exists
+            matched = self._match_route(routes, path)
+            if matched is None:
+                return self.response(404, "Not found", {})
 
-        if routes is None:
-            return self.response(503, "Method not allowed", {})
+            # Get the route and handler
+            route, handler = matched
 
-        # Check if the route exists
-        matched = self._match_route(routes, path)
-        if matched is None:
-            return self.response(404, "Not found", {})
-
-        # Get the route and handler
-        route, handler = matched
-
-        # Call the handler
-        return handler(req, self._init_path_params(route, path))
+            # Call the handler
+            return handler(req, self._init_path_params(route, path))
 
     def _init_path_params(self, route: str, path: str) -> Dict[str, str]:
         """
