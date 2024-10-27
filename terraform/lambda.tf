@@ -12,6 +12,12 @@ resource "aws_lambda_function" "my_lambda" {
   source_code_hash = filebase64sha256(local.lambda_zip_file)
   architectures    = ["arm64"]
 
+  environment {
+    variables = {
+      ENVIRONMENT = var.environment
+    }
+  }
+
   # Optional: timeout, memory, etc.
   timeout     = 30
   memory_size = 128

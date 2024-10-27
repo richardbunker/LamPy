@@ -12,15 +12,10 @@ class TestLogger(unittest.TestCase):
         Test that the logger outputs the correct message.
         """
         req: Request = {
-            "requestContext": {
-                "http": {
-                    "method": "GET",
-                    "path": "/test/path"
-                }
-            },
+            "requestContext": {"http": {"method": "GET", "path": "/test/path"}},
             "queryStringParameters": {"param1": "value1"},
             "headers": {"Header1": "HeaderValue1"},
-            "body": "Test body"
+            "body": "Test body",
         }
         environment = "PRODUCTION"
         with StringIO() as buf, redirect_stdout(buf):
@@ -33,15 +28,10 @@ class TestLogger(unittest.TestCase):
         Test that the logger does not output in non-production environments.
         """
         req: Request = {
-            "requestContext": {
-                "http": {
-                    "method": "GET",
-                    "path": "/test/path"
-                }
-            },
+            "requestContext": {"http": {"method": "GET", "path": "/test/path"}},
             "queryStringParameters": {"param1": "value1"},
             "headers": {"Header1": "HeaderValue1"},
-            "body": "Test body"
+            "body": "Test body",
         }
         environment = "LOCAL"
         with StringIO() as buf, redirect_stdout(buf):

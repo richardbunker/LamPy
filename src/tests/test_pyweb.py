@@ -20,7 +20,6 @@ class TestProdPyWeb(unittest.TestCase):
         mock_logger.assert_called_once_with(event, "PRODUCTION")
 
 
-
 class TestPyWeb(unittest.TestCase):
     def setUp(self) -> None:
         self.app = PyWeb("LOCAL")
